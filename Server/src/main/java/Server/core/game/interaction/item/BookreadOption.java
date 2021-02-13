@@ -7,6 +7,7 @@ import core.game.node.entity.player.Player;
 import core.game.node.item.Item;
 import core.plugin.Initializable;
 import core.plugin.Plugin;
+import core.tools.Items;
 
 /**
  * Represents the plugin used to handle the "read" option of a book.
@@ -19,12 +20,12 @@ public class BookreadOption extends OptionHandler {
 
     @Override
     public Plugin<Object> newInstance(Object arg) throws Throwable {
-        ItemDefinition.forId(292).getHandlers().put("option:read", this);
-        ItemDefinition.forId(757).getHandlers().put("option:read", this);
-        ItemDefinition.forId(1856).getHandlers().put("option:read", this);
-        ItemDefinition.forId(9003).getHandlers().put("option:read", this);
-        ItemDefinition.forId(9004).getHandlers().put("option:read", this);
-        ItemDefinition.forId(11710).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.BOOK_ON_BAXTORIAN_292).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.BOOK_757).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.GUIDE_BOOK_1856).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.BATTERED_BOOK_2886).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.SECURITY_BOOK_9003).getHandlers().put("option:read", this);
+        ItemDefinition.forId(Items.SLASHED_BOOK_9715).getHandlers().put("option:read", this);
         return this;
     }
 
@@ -48,17 +49,16 @@ public class BookreadOption extends OptionHandler {
      */
     public int getDialId(int item) {
         switch (item) {
-            case 757:
+            case Items.BOOK_757:
                 return 49610758;
-            case 9003:
+            case Items.SECURITY_BOOK_9003:
                 return 49610759;
-	/*case 9004:
-	    return 423943;*/
-            case 11710:
-                return 2739823;
-            case 292:
+            case Items.BATTERED_BOOK_2886:
+            case Items.SLASHED_BOOK_9715:
+                return 4501988;
+            case Items.BOOK_ON_BAXTORIAN_292:
                 return 183764;
-            case 1856:
+            case Items.GUIDE_BOOK_1856:
                 return 387454;
         }
         return -1;
