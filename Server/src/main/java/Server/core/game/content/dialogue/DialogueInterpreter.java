@@ -372,6 +372,17 @@ public final class DialogueInterpreter {
         player.getPacketDispatch().sendItemOnInterface(item.getId(), item.getAmount(), 131, 2);
         return player.getInterfaceManager().getChatbox();
     }
+    public Component sendItemMessage(final Item item, final boolean hide, String... messages) {
+        player.getInterfaceManager().openChatbox(131);
+        String message = messages[0];
+        for (int i = 1; i < messages.length; i++) {
+            message += "<br>" + messages[i];
+        }
+        player.getPacketDispatch().sendString(message, 131, 1);
+        player.getPacketDispatch().sendInterfaceConfig(player.getInterfaceManager().getChatbox().getId(), 3, hide);
+        player.getPacketDispatch().sendItemOnInterface(item.getId(), item.getAmount(), 131, 2);
+        return player.getInterfaceManager().getChatbox();
+    }
 
     /**
      * Send a message with an item next to it.

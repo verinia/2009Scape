@@ -17,11 +17,16 @@ class KnifeOnBook : UseWithHandler(Items.KNIFE_946) {
 
     override fun handle(event: NodeUsageEvent?): Boolean {
         val player = event?.player?: return false
+        if (!player.getAttribute("elewrkshp-read-book", false)) {
+            player.dialogueInterpreter.sendItemMessage(Items.BATTERED_BOOK_2886, "I should probably read the book before I do this.")
+            return false
+        }
         player.dialogueInterpreter.sendItemMessage(Items.SLASHED_BOOK_9715, "You make a small cut in the spine of the book.")
         player.sendMessage("Inside you find a small, old, battered key.")
         if (player.inventory.remove(Item(Items.BATTERED_BOOK_2886))) {
             player.inventory.add(Item(Items.SLASHED_BOOK_9715))
             player.inventory.add(Item(Items.BATTERED_KEY_2887))
+            player.setAttribute("/save:elewrkshp-slashed-book",true)
         }
         return true
     }

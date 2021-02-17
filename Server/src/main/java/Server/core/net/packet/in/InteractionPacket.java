@@ -260,6 +260,7 @@ public final class InteractionPacket implements IncomingPacket {
 		player.debug(object + ", original=" + objectId + ", option=" + option.getName() + "");
 		player.debug("dir=" + object.getDirection());
 		VarbitDefinition def = VarbitDefinition.forObjectID(ObjectDefinition.forId(objectId).getVarbitID());
+		player.varpManager.setVarbit(def, 0);
 		player.debug("Varp ID=" + def.getConfigId() + " Offset=" + def.getBitShift() + " Size=" + def.getBitSize());
 		if (option.getHandler() != null) {
 			player.debug("Object handler: " + option.getHandler().getClass().getSimpleName());
