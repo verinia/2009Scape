@@ -47,12 +47,12 @@ class ElementalWorkshopHandler : OptionHandler() {
         }
         return true
     }
-    fun pull(player: Player?, door: GameObject?) {
+
+    fun pull(player: Player?, lever: GameObject?) {
         player ?: return
-        println(VarbitDefinition.forObjectID(ObjectDefinition.forId(water_wheel_varbit).varbitID))
-        player.varpManager.sendAllVarps()
-//        player.varpManager.get(VarbitDefinition.forObjectID(ObjectDefinition.forId(west_water_controls_varbit).varbitID).getValue(player)
-        player.varpManager.setVarbit(VarbitDefinition.forObjectID(ObjectDefinition.forId(water_wheel_varbit).varbitID), 1)
+        lever ?: return
+        player.varpManager.set(2063, 1)
+        lever.transform(3417)
     }
 
     fun open(player: Player?, door: GameObject?) {

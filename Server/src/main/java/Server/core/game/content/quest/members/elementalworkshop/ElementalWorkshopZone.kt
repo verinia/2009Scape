@@ -17,11 +17,9 @@ import core.plugin.Plugin
 @Initializable
 class ElementalWorkshopZone : MapZone("elewrkshop-zone", false), Plugin<Unit> {
 
-    private val NPCS = arrayOf(
-        /** sir vant  */
-        NPC.create(7938, Location.create(2524, 5005, 0), Direction.NORTH),
-        /** goblin */
-        NPC.create(7965, Location.create(2524, 4997, 0), Direction.NORTH)
+    private val NPCS = emptyArray<NPC>(
+        /*NPC.create(7938, Location.create(2524, 5005, 0), Direction.NORTH),
+        NPC.create(7965, Location.create(2524, 4997, 0), Direction.NORTH)*/
     )
 
     /**
@@ -41,11 +39,6 @@ class ElementalWorkshopZone : MapZone("elewrkshop-zone", false), Plugin<Unit> {
         registerRegion(region.id)
     }
 
-    fun create(player: Player) {
-        configure()
-        player.teleport(getBase()!!.transform(28, 12, 0))
-    }
-
     private fun setNpcs() {
         for (n in NPCS) {
             val ent = NPC.create(n.id, n.location, n.direction)
@@ -61,11 +54,21 @@ class ElementalWorkshopZone : MapZone("elewrkshop-zone", false), Plugin<Unit> {
         e ?: return false
         if (e is Player) {
             var player = e.asPlayer()
-            create(player)
-//            player.teleport(getBase()!!.transform(28, 12, 0))
-            player.dialogueInterpreter.sendDialogues(player, FacialExpression.NEUTRAL, "Now to explore this area thoroughly, to find what", "forgotten secrets it contains.")
+            if (!player.getAttribute("elewrkshp:first-time", false)) {
+                player.setAttribute("/save:elewrkshp:first-time", true)
+                player.dialogueInterpreter.sendDialogues(
+                    player,
+                    FacialExpression.NEUTRAL,
+                    "Now to explore this area thoroughly, to find what",
+                    "forgotten secrets it contains."
+                )
+                player.teleport(getBase()!!.transform(25, 31, 0))
+            } else {
+                player.teleport(base!!.transform(player.location.localX, player.location.localY, 0))
+            }
+            return true
         }
-        return super.enter(e)
+        return false
     }
 
     /**
